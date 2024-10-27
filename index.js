@@ -204,23 +204,21 @@ app.get("/logout", (req, res) => {
 // Messages API
 app.get('/api/messages/:productId', async (req, res) => {
     try {
-        const messages = await Message.find({ productId: req.params.productId })
-            .sort({ timestamp: 1 });
+        const messages = await Message.find({ productId: req.params.productId }).sort({ timestamp: 1 });
         res.json(messages);
     } catch (err) {
-        console.error(err);
         res.status(500).send(err.message);
     }
 });
 
+// Post new message with productId
 app.post('/api/messages', async (req, res) => {
     try {
-        const { user, text, productId } = req.body;
-        const newMessage = new Message({ user, text, productId });
+        const { user, text, productId } = req.body; // Get productId from request body
+        const newMessage = new Message({ user, text, productId }); // Save productId
         await newMessage.save();
         res.status(201).send();
     } catch (err) {
-        console.error(err);
         res.status(500).send(err.message);
     }
 });
