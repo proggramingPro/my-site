@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-mongo": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.1.5",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.7.0",
+    "uid2": "^1.0.0"
+  },
+  "devDependencies": {
+    "buffer-crc32": "^1.0.0",
+    "nodemon": "^3.1.7"
+  },
+  "scripts": {
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js"
+  }
+}

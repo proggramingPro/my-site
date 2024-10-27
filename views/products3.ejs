@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Work-Zone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        .navbar {
+            background-color: #333;
+            color: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+        .navbar .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .navbar .menu a:hover {
+            color: #ff6600;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        .container h1 {
+            text-align: center;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+        .container ul {
+            list-style: none;
+            padding: 0;
+        }
+        .container li {
+            background-color: #444;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .container li h3 {
+            color: #ff6600;
+            margin: 0 0 10px;
+        }
+        .chat-section {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+        .chat-box {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #777;
+            background-color: #222;
+        }
+        .chat-input {
+            display: flex;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .chat-input button {
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .chat-input button:hover {
+            background-color: #e65c00;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Work-Zone</div>
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/products">Products</a>
+            <a href="/user">Profile</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>C++ Projects</h1>
+        <ul>
+            <% if (products3.length === 0) { %>
+                <li>No products available at this time.</li>
+            <% } else { %>
+                <% products3.forEach(product => { %>
+                    <li>
+                        <h3><%= product.name %></h3>
+                        <p><%= product.description %> <h4>By <%= product.uname %></h4></p>
+
+                        <div class="chat-section">
+                            <div class="chat-box" data-product-id="<%= product._id %>">
+                                <div class="messages">
+                                    <!-- Messages will be loaded here by JavaScript -->
+                                </div>
+                                <div class="chat-input">
+                                    <input type="text" placeholder="Type your message here...">
+                                    <button>Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <% }); %>
+            <% } %>
+        </ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatBoxes = document.querySelectorAll('.chat-box');
+
+            chatBoxes.forEach(chatBox => {
+                const messages = chatBox.querySelector('.messages');
+                const chatInput = chatBox.querySelector('.chat-input input');
+                const sendButton = chatBox.querySelector('.chat-input button');
+                const productId = chatBox.dataset.productId;
+
+                // Load existing messages for each product
+                function loadMessages() {
+                    fetch(`/api/messages/${productId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            messages.innerHTML = '';
+                            data.forEach(message => {
+                                const messageElement = document.createElement('p');
+                                messageElement.innerHTML = `<strong>${message.user}:</strong> ${message.text}`;
+                                messages.appendChild(messageElement);
+                            });
+                        })
+                        .catch(err => console.error('Error loading messages:', err));
+                }
+
+                loadMessages();
+
+                // Send new message
+                sendButton.addEventListener('click', () => {
+                    const text = chatInput.value.trim();
+                    if (text) {
+                        fetch('/api/messages', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ user: '<%= username %>', text, productId })
+                        })
+                        .then(() => {
+                            chatInput.value = '';
+                            loadMessages(); // Refresh messages
+                        })
+                        .catch(err => console.error('Error sending message:', err));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Work-Zone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        .navbar {
+            background-color: #333;
+            color: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+        .navbar .logo span {
+            margin-left: 10px;
+            font-size: 24px;
+        }
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .navbar .menu a:hover {
+            color: #ff6600;
+        }
+        .navbar .menu .profile-icon {
+            font-size: 24px;
+            color: #ff6600;
+        }
+        .hero {
+            background-color: #444;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .hero h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .collaboration-area {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .collaboration-area {
+            background-color: #333;
+            border-radius: 8px;
+            margin: 20px;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-box .messages {
+            flex: 1;
+            margin-bottom: 10px;
+        }
+        .chat-box .messages p {
+            margin: 0 0 10px;
+        }
+        .chat-box .chat-input {
+            display: flex;
+            align-items: center;
+        }
+        .chat-box .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .chat-box .chat-input button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .chat-box .chat-input button:hover {
+            background-color: #e65c00;
+        }
+        .footer {
+            background-color: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .footer .footer-content {
+            max-width: 800px;
+        }
+        .footer .footer-content h2 {
+            font-size: 24px;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+        .footer .footer-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .footer .footer-content .social-icons {
+            margin-bottom: 20px;
+        }
+        .footer .footer-content .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 24px;
+        }
+        .footer .footer-content .social-icons a:hover {
+            color: #ff6600; 
+        }
+        .footer .footer-bottom {
+            font-size: 14px;
+        }
+        .project-section {
+            background-color: #444; 
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            width: 100%; 
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+        }
+        .project-box {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #333; 
+            color: #f5f5f5; 
+            width: 100%; 
+        }
+        .project-box h2 {
+            margin-bottom: 20px; 
+        }
+        .project-grid {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            width: 100%; 
+        }
+        .project-item {
+            height: 100px; 
+            background-color: #444; 
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+            text-decoration: none; 
+            color: inherit;
+        }
+        .project-item:hover {
+            transform: scale(1.05); 
+        }
+        .project-item h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff6600; 
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            Work-Zone
+        </div>
+        <div class="menu">
+            <a href="/products">Project Ideas</a>
+            <a href="/collab">Collaboration</a>
+            <a href="/about">Service</a>
+            <a href="/user">User</a>
+            <i class="fas fa-user-circle profile-icon"></i>
+        </div>
+    </div>
+    <div class="hero">
+        <h1>Welcome to Work-Zone</h1>
+        <p>Collaborate with others and engage in real-time discussions. Start a project or join an existing one. Connect with your peers and make the most of our platform.</p>
+    </div>
+    <div class="project-section">
+        <div class="project-box">
+            <h2>Projects</h2>
+            <div class="project-grid">
+                <a href="/products1" class="project-item">
+                    <h3>Frontend Project</h3>
+                </a>
+                <a href="/products2" class="project-item">
+                    <h3>Backend Project</h3>
+                </a>
+                <a href="/products3" class="project-item">
+                    <h3>C++ Project</h3>
+                </a>
+                <a href="/products4" class="project-item">
+                    <h3>Python Project</h3>
+                </a>
+                <a href="/products5" class="project-item">
+                    <h3>Java Project</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <footer>
+            <div class="footer-content">
+                <h2>Stay Connected</h2>
+                <p>Subscribe to our newsletter and follow us on social media to stay updated with the latest news and updates.</p>
+                <div class="social-icons">
+                    <a href="#" class="fab fa-facebook-f" title="Facebook"></a>
+                    <a href="#" class="fab fa-twitter" title="Twitter"></a>
+                    <a href="#" class="fab fa-linkedin-in" title="LinkedIn"></a>
+                    <a href="#" class="fab fa-instagram" title="Instagram"></a>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2024 Work-Zone. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

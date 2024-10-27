@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to Work-Zone to access project ideas and collaboration features.">
+    <title>Login - Work-Zone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        .navbar {
+            background-color: #333;
+            color: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .navbar .menu a:hover {
+            color: #ff6600;
+        }
+        .content {
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .login-form {
+            background-color: #333;
+            padding: 30px;
+            border-radius: 5px;
+            display: inline-block;
+            max-width: 400px;
+            width: 100%;
+        }
+        .login-form h2 {
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #f5f5f5;
+        }
+        .login-form input[type="submit"] {
+            background-color: #ff6600;
+            color: #fff;
+            cursor: pointer;
+        }
+        .login-form input[type="submit"]:hover {
+            background-color: #e65c00;
+        }
+        .footer {
+            background-color: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .footer .footer-content {
+            max-width: 800px;
+        }
+        .footer .footer-content h2 {
+            font-size: 24px;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+        .footer .footer-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .footer .footer-content .social-icons {
+            margin-bottom: 20px;
+        }
+        .footer .footer-content .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 24px;
+        }
+        .footer .footer-content .social-icons a:hover {
+            color: #ff6600;
+        }
+        .footer .footer-bottom {
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                alert("Please fill in all fields.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Work-Zone</div>
+        <div class="menu">
+            <a href="/">Home</a>
+            <a href="/about">Service</a>
+            <a href="/user">User</a>
+            <i class="fas fa-user-circle profile-icon"></i>
+        </div>
+    </div>
+    <div class="content">
+        <form action="/login" method="post" class="login-form" onsubmit="return validateForm();">
+            <h2>Login to Work-Zone</h2>
+            <input name="username" type="name" id="name" placeholder="username" required>
+            <input name="password" type="password" id="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+            <span>Don't have an account?</span>
+            <a href="/signup">SignUp</a>
+        </form>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <h2>Stay Connected</h2>
+            <p>Subscribe to our newsletter and follow us on social media to stay updated with the latest news and updates.</p>
+            <div class="social-icons">
+                <a href="#" class="fab fa-facebook-f" title="Facebook"></a>
+                <a href="#" class="fab fa-twitter" title="Twitter"></a>
+                <a href="#" class="fab fa-linkedin-in" title="LinkedIn"></a>
+                <a href="#" class="fab fa-instagram" title="Instagram"></a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 Work-Zone. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaboration - Work-Zone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        .navbar {
+            background-color: #333;
+            color: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .navbar .menu a:hover {
+            color: #ff6600;
+        }
+        .content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .profiles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .profile-box {
+            background-color: #333;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .profile-box:hover {
+            transform: scale(1.05);
+        }
+        .profile-box h3 {
+            font-size: 18px;
+            color: #ff6600;
+        }
+        .profile-box p {
+            font-size: 14px;
+        }
+        .footer {
+            background-color: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            Work-Zone
+        </div>
+        <div class="menu">
+            <a href="/home">Home</a>
+            <a href="/products">Project Ideas</a>
+            <a href="/about">Service</a>
+            <a href="/login">Login</a>
+            <i class="fas fa-user-circle profile-icon"></i>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h1>Team Member</h1>
+        <p>Team That Built This Exciting Platform to Make Coding Interesting.</p>
+        <div class="profiles">
+         
+            <div class="profile-box">
+                <h3>Ranjit Pawar</h3>
+                <p>Web Developer</p>
+                <p>Expert in HTML, CSS, and JavaScript.</p>
+            </div>
+            <div class="profile-box">
+                <h3>Abhay Mali</h3>
+                <p>Graphic Designer</p>
+                <p>Specializes in UI/UX design and branding.</p>
+            </div>
+            <div class="profile-box">
+                <h3>Vaibhav Mpre</h3>
+                <p>Data Scientist</p>
+                <p>Passionate about data analysis and machine learning.</p>
+            </div>
+            <div class="profile-box">
+                <h3>Rakesh More</h3>
+                <p>Project Manager</p>
+                <p>Skilled in Agile methodologies and team leadership.</p>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <h2>Stay Connected</h2>
+            <p>Subscribe to our newsletter and follow us on social media to stay updated with the latest news and updates.</p>
+            <div class="social-icons">
+                <a href
