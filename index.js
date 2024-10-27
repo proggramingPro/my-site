@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
-
+app.set('trust proxy', true);
 // Security middleware
 app.use(helmet());
 app.use(cors());
