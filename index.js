@@ -96,13 +96,7 @@ app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
 
-// Authentication middleware
-const requireAuth = (req, res, next) => {
-    if (!req.session.username) {
-        return res.redirect("/login");
-    }
-    next();
-};
+
 
 // Define routes
 const routes = [
