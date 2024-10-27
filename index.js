@@ -222,7 +222,12 @@ app.post('/api/messages', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
-
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
+    res.status(500).send('Something broke!');
+});
 // Product submission route
 app.post("/user", async (req, res) => {
     try {
