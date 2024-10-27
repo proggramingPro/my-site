@@ -122,52 +122,54 @@ routes.forEach((route) => {
 });
 
 // User home route
-app.get("/home", requireAuth, (req, res) => {
+app.get("/home", (req, res) => {
+    if (!req.session.username) {
+        return res.redirect("/login");
+    }
     res.render("home", { username: req.session.username });
 });
 
 // User profile route
-app.get("/user", requireAuth, async (req, res) => {
+app.get("/user", async (req, res) => {
+    if (!req.session.username) {
+        return res.redirect("/login");
+    }
+
     try {
-        const products = await Product.find();
-        res.render("user", {
-            username: req.session.username,
-            profile: req.session.profile,
-            about: req.session.about,
-            products: products || []
-        });
+        const products = await Product.find(); // Fetch products from the database
+        res.render("user", { username: req.session.username, profile: req.session.profile, about: req.session.about, products: products || [] });
     } catch (err) {
         console.error(err);
-        res.status(500).send("An error occurred. Please try again.");
+        res.send("An error occurred. Please try again.");
     }
 });
 
 // Signup route
 app.post("/signup", async (req, res) => {
-    try {
-        const { username, profile, about, Email: email, password } = req.body;
+    const data = {
+        name: req.body.username,
+        profile: req.body.profile,
+        about: req.body.about,
+        email: req.body.Email,
+        password: req.body.password
+    };
 
-        const existingUser = await User.findOne({ $or: [{ name: username }, { email }] });
-        if (existingUser) {
-            return res.status(400).send(
-                existingUser.name === username ? 'Username already exists' : 'Email already exists'
-            );
-        }
+    const existingUser = await User.findOne({ name: data.name });
+    const existingEmail = await User.findOne({ email: data.email });
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await User.create({
-            name: username,
-            profile,
-            about,
-            email,
-            password: hashedPassword
-        });
-
-        res.render("login");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("An error occurred during signup.");
+    if (existingUser) {
+        return res.send('User already exists. Please choose a different username.');
     }
+    if (existingEmail) {
+        return res.send('Email already exists. Please choose a different email.');
+    }
+
+    const saltRounds = 10; 
+    const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+    data.password = hashedPassword; 
+
+    await User.create(data);
+    res.render("login");
 });
 
 // Login route
@@ -175,12 +177,12 @@ app.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ name: req.body.username });
         if (!user) {
-            return res.status(400).send("User not found.");
+            return res.send("User name cannot be found.");
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, user.password);
         if (!isPasswordMatch) {
-            return res.status(400).send("Invalid password.");
+            return res.send("Wrong Password.");
         }
 
         req.session.userId = user._id.toString();
@@ -188,14 +190,10 @@ app.post("/login", async (req, res) => {
         req.session.profile = user.profile;
         req.session.about = user.about;
 
-        res.render("home", {
-            username: user.name,
-            profile: user.profile,
-            about: user.about
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("An error occurred during login.");
+        res.render("home", { username: user.name, profile: user.profile, about: user.about });
+    } catch (error) {
+        console.error(error);
+        res.send("An error occurred. Please try again.");
     }
 });
 
@@ -235,31 +233,112 @@ app.post('/api/messages', async (req, res) => {
 });
 
 // Product submission route
-app.post("/user", requireAuth, async (req, res) => {
+app.post("/user", async (req, res) => {
     try {
-        const { productName, problem, productDescription, uname } = req.body;
+        const { productName, problem, productDescription, uname } = req.body; 
         const newProduct = new Product({
             name: productName,
-            problem,
+            problem: problem,
             description: productDescription,
-            uname
+            uname: uname
         });
         await newProduct.save();
-
-        switch(problem.toLowerCase()) {
-            case "frontend": return res .redirect("/products1");
-            case "backend": return res.redirect("/products2");
-            case "cpp": return res.redirect("/products3");
-            case "python": return res.redirect("/products4");
-            case "java": return res.redirect("/products5");
-            default: return res.redirect("/products");
-        }
+        if(problem == "frontend"){
+            res.redirect("/products1");
+        }else if(problem== "backend"){
+            req.redirect("/products2");
+        }else if(problem== "cpp"){
+            req.redirect("/products3");
+        }else if(problem== "python"){
+            req.redirect("/products4");
+        }else if(problem== "java"){
+            req.redirect("/products5");
+        }else{
+            req.redirect("/products");
+        } 
     } catch (err) {
         console.error(err);
         res.status(500).send("An error occurred. Please try again.");
     }
 });
 
+app.get("/products", async (req, res) => {
+    if (!req.session.username) {
+        return res.redirect("/login");
+    }
+    res.render("home", { username: req.session.username });
+    try {
+        const products = await Product.find();
+        res.render("products", { products, username: req.session.username });
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
+app.get("/products6", async (req, res) => {
+    try {
+        const products6 = await Product.find();
+        res.render("products6", { products6, username: req.session.username });
+
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
+app.get("/products1", async (req, res) => {
+    try {
+        let query1 = {problem:"frontend"};
+        const products1 = await Product.find(query1);
+        res.render("products1", { products1, username: req.session.username, products: [] }); // or res.render('products1', { products: someProductArray }); });
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
+
+app.get("/products2", async (req, res) => {
+    try {
+        let query2 = {problem:"backend"};
+        const products2 = await Product.find(query2);
+        res.render("products2", { products2, username: req.session.username });
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
+
+app.get("/products3", async (req, res) => {
+    try {
+        let query3 = {problem:"cpp"};
+        const products3 = await Product.find(query3);
+        res.render("products3", { products3, username: req.session.username }); // or res.render('products1', { products: someProductArray }); });
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
+
+app.get("/products4", async (req, res) => {
+    try {
+        let query4 = {problem:"python"};
+        const products4 = await Product.find(query4);
+        res.render("products4", { products4, username: req.session.username}); // or res.render('products1', { products: someProductArray }); });
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
+
+app.get("/products5", async (req, res) => {
+    try {
+        let query5 = {problem:"java"};
+        const products5 = await Product.find(query5);
+        res.render("products5", { products5, username: req.session.username }); // or res.render('products1', { products: someProductArray }); });
+    } catch (err) {
+        console.error(err);
+        res.send("An error occurred. Please try again.");
+    }
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
