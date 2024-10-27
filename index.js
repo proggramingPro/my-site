@@ -10,7 +10,13 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
-app.set('trust proxy', true);
+app.set('trust proxy', (ip) => {
+    // Define logic to determine if the IP should be trusted.
+    // For example, only trust IPs from a specific range.
+    const trustedIps = ['123.45.67.89']; // Example trusted IP addresses
+    return trustedIps.includes(ip);
+});
+
 // Security middleware
 app.use(helmet());
 app.use(cors());
