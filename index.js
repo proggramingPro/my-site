@@ -69,7 +69,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Session configuration
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'your-fallback-secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -77,9 +77,8 @@ app.use(session({
         collectionName: 'sessions'
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        httpOnly: true
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 const path = require('path');
